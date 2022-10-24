@@ -1,0 +1,9 @@
+5. Perform a static analysis of the erroneous code and copy the result into your solution.
+    Use the tools:
+       - rats
+       - cppcheck
+       - splint
+       - vera++
+       - valgrind
+
+--> rats
