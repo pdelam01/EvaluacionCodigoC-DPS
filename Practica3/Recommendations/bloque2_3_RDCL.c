@@ -1,5 +1,6 @@
 /**
- * 
+ * Install perf and run it on the code to do profiling. What is the instruction that requieres more CPU time?
+ * Screenshot and explination in the README.
 */
 
 #include <stdio.h>

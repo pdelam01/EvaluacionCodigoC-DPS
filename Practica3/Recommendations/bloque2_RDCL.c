@@ -49,8 +49,9 @@
 */
 
 #include <stdarg.h>
+#include <stdio.h>
 
-enum { va_aeol = -1}; /* --> DCL06-C. Use meaningful symbolic constants to represent literal values <-- */
+enum { va_eol = -1}; /* --> DCL06-C. Use meaningful symbolic constants to represent literal values <-- */
 
 /* --> DCL10-C. Maintain the contract between the writer and caller of variadic functions <-- */
 unsigned int average(int first, ...){
@@ -59,16 +60,21 @@ unsigned int average(int first, ...){
     int i = first;
     va_list args;
 
-    va_start(args, first);
+    va_start(args, first); // Must be called to initialize argument list
 
-    while (i != va_aeol){
+    while (i != va_eol){
         sum += i;
         count++;
         i = va_arg(args, int);
     }
 
-    va_end(args);
+    va_end(args); // Must be called to clean up argument list
     return (count ? (sum / count) : 0);
 }
 
-// In order to call function average(): average(1, 2, 3, 4, 5, va_aeol);
+int main(void){
+    unsigned int o = average(1,2,3,4,5,va_eol);
+    printf("\navg: %d",o);
+}
+
+// In order to call function average(): average(1, 2, 3, 4, 5, va_eol);
