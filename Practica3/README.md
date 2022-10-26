@@ -40,4 +40,15 @@
  ```
 
  ### Programas y código:
- 
+ ### Parte de Reglas:
+ - **ejercicioInt.c**: pequeño programa con 2 reglas SEI CERT descritas.
+ - **bloque1_DCL.c**: ejercicio 1. Definición de reglas DCL que han sido vulneradas/rotas. 
+- **bloque1_2_DCL.c**: ejercicio 2. Explicación del código, problemas vistos y definición de reglas DCL que han sido vulneradas.
+- **bloque1_3_DCL.c**: ejercicio 3. Los archivos asociados a este:
+    - **bloque1_3_main_DCL.c**: archivo principal.
+    - **solution1_3_compilers.md**: archivo con la salida obtenida al ejecutar los programas de analisis estático de código C.
+
+### Parte de Recomendaciones:
+- **bloque2_RDCL.c**: ejercicio 1. Explicación del código y definición de recomendaciones DCL que han sido vulneradas. Solución propuesta.
+- **bloque2_2_RDCL.c**: ejercicio 2. Función factorial. Explicación del código y definición de recomendaciones y reglas que han sido vulneradas. Prueba de la herramienta *perf* para *profiling*.
+- **bloque2_3_RDCL.c**: ejercicio 3. Herramienta *perf* para *profiling*. Función fibonacci. 
