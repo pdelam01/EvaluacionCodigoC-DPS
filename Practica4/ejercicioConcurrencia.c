@@ -1,5 +1,13 @@
 /**
  * Exercise using examples of rules SEI CERT C Coding Standars: Concurrency 
+ * 
+ *  • DCL22-C. Use volatile for data that cannot be cached
+ *  • CON43-C. Do not allow data races in multithreaded code
+ *  • CON31-C. Do not destroy a mutex while it is locked
+ *  • CON33-C. Avoid race conditions when using library functions
+ *  • CON35-C. Avoid deadlock by locking in a predefined order
+ *  • CON37-C. Do not call signal() in a multithreaded program
+ *  • CON39-C.Do not join or detach a thread that was previously joined or detached
 */
 
 #include <stdatomic.h>
