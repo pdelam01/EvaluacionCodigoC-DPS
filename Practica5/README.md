@@ -76,8 +76,6 @@ Observamos el valor de $rip: GYFY -> 0x47594659
 
 No obstante, este enfoque acabaría por pisar la memoria, por lo que no podremos ver el registro. Por eso es mejor realizar lo siguiente:
 
-![Step4-Commands](imgs/step4_diferencia_hex.png "GDB registers")
-
 ```python
 #!/usr/bin/python
 print("X"*80 + "CDEF")
@@ -95,7 +93,7 @@ Disassembling de la función f_entrar():
 De la foto anterior, podemos observamos que el registro $rbp (base pointer) apunta a la dirección 0x00401156. Por lo tanto, podemos realizar un exploit que nos permita modificar el valor de $rbp y así poder controlar el flujo de ejecución del programa. Para ello, creamos un nuevo exploit:
 ```python
 #!/usr/bin/python
-print("X"*50 + "\x00\x40\x11\x56")
+print("X"*80 + "\x56\x11\x40\x00")
 ```
 
 Y lo ejecutamos:
@@ -106,3 +104,5 @@ Y lo ejecutamos:
 Finalmente obtenemos lo siguiente:
 
 ![Step5-Commands](imgs/step5_final.png "Final result")
+
+Hemos conseguido así acceder a la función f_entrar() accediendo desde su posición en memoria.

